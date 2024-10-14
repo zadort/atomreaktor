@@ -12,9 +12,11 @@ namespace atomreaktor
 {
     public partial class Form1 : Form
     {
-        int homerseklet = 0;
+        Random r = new Random();
+        int homerseklet = 40;
         int energia = 0;
-        bool online;
+        bool online = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -24,39 +26,73 @@ namespace atomreaktor
 
         private void beinditas_Click(object sender, EventArgs e)
         {
-            online = true;
-            Random r = new Random();
-            homerseklet = r.Next(40, 101);
-            kiiratasHomerseklet.Text = homerseklet.ToString();
-            kiiratasHomerseklet.Text = energia.ToString();
+            
+            if (!online)
+            {
+                online = true;
+                homerseklet = r.Next(40, 101);
+                energia = r.Next(1, 11);
+                kiiratasHomerseklet.Text = homerseklet.ToString();
+                kiiratasGeneraltEnergia.Text = energia.ToString();
+                MessageBox.Show("A reaktor elindult!");
+            }
+            else
+            {
+                MessageBox.Show("A reaktor már fut!");
+            }
         }
 
         private void leallitas_Click(object sender, EventArgs e)
         {
-            if (homerseklet < 70)
+            if (online)
             {
-                online = false;
-                MessageBox.Show("A reaktor sikeresn leállt!");
+                if (homerseklet < 70)
+                {
+                    online = false;
+                    MessageBox.Show("A reaktor sikeresn leállt!");
+                }
+                else
+                {
+                    MessageBox.Show("Túl magas a hőmrérséklet. Kérlek, hűtsd le a reaktort!");
+                }
             }
-            else {
-                MessageBox.Show("Túl magas a hőmrérséklet. Kérlek, hűtsd le a reaktort!");
+            else
+            {
+                MessageBox.Show("A reaktor nem fut");
             }
         }
 
         private void generaltEnergiaMennyiseg_Click(object sender, EventArgs e)
         {
-
+            if (online)
+            {
+                energia += r.Next(1, 6);
+                kiiratasGeneraltEnergia.Text = energia.ToString();
+            }
+            else
+            {
+                MessageBox.Show("A reaktor nem termel energiát!");
+            }
         }
 
         private void hofok_Click(object sender, EventArgs e)
         {
-
+            kiiratasHomerseklet.Text = homerseklet.ToString();
         }
 
         private void hutovizBeengedese_Click(object sender, EventArgs e)
         {
-            homerseklet = 40;
-            MessageBox.Show("Hűtővíz beengedése...");
+            if (online && homerseklet > 40)
+            {
+                homerseklet = 40;
+                kiiratasHomerseklet.Text = homerseklet.ToString();
+                homerseklet = 0;
+                MessageBox.Show("A rektor lehuvte");
+            }
+            else
+            {
+                MessageBox.Show("A rekttor mar lehivte");
+            }
         }
 
         private void kiiratasHomerseklet_TextChanged(object sender, EventArgs e)
