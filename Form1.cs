@@ -49,16 +49,18 @@ namespace atomreaktor
                 if (homerseklet < 70)
                 {
                     online = false;
+                    kiiratasHomerseklet.Clear();
+                    kiiratasGeneraltEnergia.Clear();
                     MessageBox.Show("A reaktor sikeresn leállt!");
                 }
                 else
                 {
-                    MessageBox.Show("Túl magas a hőmrérséklet. Kérlek, hűtsd le a reaktort!");
+                    MessageBox.Show("Túl magas a hőmérséklet. Kérlek, hűtsd le a reaktort!");
                 }
             }
             else
             {
-                MessageBox.Show("A reaktor nem fut");
+                MessageBox.Show("A reaktor nem fut!");
             }
         }
 
@@ -87,11 +89,11 @@ namespace atomreaktor
                 homerseklet = 40;
                 kiiratasHomerseklet.Text = homerseklet.ToString();
                 homerseklet = 0;
-                MessageBox.Show("A rektor lehuvte");
+                MessageBox.Show("A reaktor lehűtve!");
             }
             else
             {
-                MessageBox.Show("A rekttor mar lehivte");
+                MessageBox.Show("A reaktor már le van hűtve!");
             }
         }
 
